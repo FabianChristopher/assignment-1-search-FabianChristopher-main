@@ -13,7 +13,7 @@ def BFS(maze, start):
     while queue:
         cell = queue.popleft()
         for next_cell in valid_moves(maze, cell):
-            if path_lengths[next_cell] == -1:
+            if path_lengths[next_cell] == -1 or path_lengths[next_cell] > path_lengths[cell] + maze[cell]:
                 path_lengths[next_cell] = path_lengths[cell] + maze[cell]
                 queue.append(next_cell)
 
