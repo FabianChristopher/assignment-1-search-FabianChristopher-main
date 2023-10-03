@@ -6,36 +6,42 @@ from HILLDESCENT import energyfunction
 
 def SIMULATED_ANNEALING(maze, start_cell, goal_state, iterations, T, decay):
 
-	'''
-	Fill in this function to implement Simulated Annealing.
+    current_maze = maze.copy()
+    current_energy = energyfunction(current_maze, start_cell, goal_state)
+    
+    best_maze = current_maze.copy()
+    best_energy = current_energy
 
-	The energy function is the same as used for Hill Descent
-	and is already imported here for it to be used directly
-	(see the energyfunction() function in HILLDESCENT.py).
+    for _ in range(iterations):
+        # Pick a random cell that is not the goal
+        while True:
+            x, y = np.random.randint(0, len(maze), size=2)
+            if (x, y) != goal_state:
+                break
 
-	With an input temperature 'T' and a decay rate 'decay',
-	you should run the algorithm for 'iterations' steps.
+        # Change its jump value to a different random jump value between 1 and k - 1
+        old_value = current_maze[x, y]
+        current_maze[x, y] = np.random.randint(1, len(maze))
 
-	At each step, you should randomly select a valid move,
-	and move to that state with probability 1 if the energy
-	of the new state is less than the energy of the current state,
-	or with probability exp((current_energy - new_energy)/T)
-	if the energy of the new state is greater than the current energy.
+        # Compute the new energy
+        new_energy = energyfunction(current_maze, start_cell, goal_state)
 
-	After each step, decrease the temperature by 
-	multiplying it by the decay rate.
+        # If the new energy is lower, update the current and best mazes and energies
+        if new_energy < current_energy:
+            current_energy = new_energy
+            if new_energy < best_energy:
+                best_maze = current_maze.copy()
+                best_energy = new_energy
+        else:
+            # If the new energy is not lower, accept the worse solution with a certain probability
+            if np.random.rand() < np.exp((current_energy - new_energy) / T):
+                current_energy = new_energy
+            else:
+                # If the worse solution is not accepted, revert the change
+                current_maze[x, y] = old_value
+        T *= decay
 
-	Your function should return the best solution found,
-	which should be a tuple containing 2 elements:
+    best_solution = best_maze, best_energy
 
-	1. The best maze found, which is a 2-dimensional numpy array.
-	2. The energy of the best maze found.
 
-	Note that you should make a local copy of the maze
-	before making any changes to it.
-
-	If using print statements to debug, please make sure
-	to remove them before your final submisison.
-	'''
-
-	return best_solution
+    return best_solution

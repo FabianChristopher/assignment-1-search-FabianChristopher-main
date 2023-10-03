@@ -1,38 +1,42 @@
 import heapq
 import numpy as np
 from VALID_MOVES import valid_moves
+from queue import PriorityQueue
+
 
 def H_score(node, goal, n):
-	'''
-	Fill in this function to return the heuristic value of the current node.
-
-	Compute heuristic as the Manhattan distance between the 
-	current node and the goal state, divided by 
-	the largest possible jump value.
-
-	n is the dimensionality of the maze (n x n).
-
-	If using print statements to debug, please make sure 
-	to remove them before your final submisison.
-	'''
-	return heuristic
+    # Compute heuristic as the Manhattan distance between the current node and the goal state, divided by the largest possible jump value.
+    heuristic = (abs(node[0] - goal[0]) + abs(node[1] - goal[1])) / (n - 1)
+    return heuristic
 
 
 def ASTAR(maze, start, goal):
-	'''
-	Fill in this function that uses A* search to find the shortest 
-	path using the heuristic function H_score defined above.
+    k = len(maze)
+    path_lengths = {start: 0}
+    path_prev = {start: None}
+    queue = PriorityQueue()
+    queue.put((0, start))
 
-	Return the length of the shortest path from the start state 
-	to the goal state, and the path itself.
+    while not queue.empty():
+        _, cell = queue.get()
 
-	Your return statement should be of the form:
-	return len(path)-1, path
+        if cell == goal:
+            break
 
-	where path is a list of tuples, corresponding to the 
-	path and includes the start state.
+        for next_cell in valid_moves(maze, cell):
+            new_cost = path_lengths[cell] + maze[cell]
 
-	If using print statements to debug, please make sure 
-	to remove them before your final submisison.
-	'''
+            if next_cell not in path_lengths or new_cost < path_lengths[next_cell]:
+                path_lengths[next_cell] = new_cost
+                priority = new_cost + H_score(next_cell, goal, k)
+                queue.put((priority, next_cell))
+                path_prev[next_cell] = cell
+
+    path = []
+    while cell is not None:
+        path.append(cell)
+        cell = path_prev[cell]
+    path.reverse()
+
+    return len(path) - 1, path
 

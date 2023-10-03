@@ -1,21 +1,22 @@
 import numpy as np
 from VALID_MOVES import valid_moves
+from collections import deque
+
 
 def BFS(maze, start):
-    
-    '''
-    Fill in this function that uses Breadth First Search to find the shortest path 
-    from the start state to the goal state.
-    
-    Return the matrix (a 2-dimensional numpy array) of shortest path 
-    distances from the start cell to each cell. 
-    
-    If no path exists from the start state to a given cell, that cell should be assigned -1.
-    
-    The start state should be assigned a path lenght of 0.
-    
-    If using print statements to debug, please make sure 
-    to remove them before your final submisison.
-    '''
+    k = len(maze)
+    path_lengths = -np.ones((k, k), dtype=int)
+    path_lengths[start] = 0
+
+    queue = deque([start])
+
+    while queue:
+        cell = queue.popleft()
+        for next_cell in valid_moves(maze, cell):
+            if path_lengths[next_cell] == -1:
+                path_lengths[next_cell] = path_lengths[cell] + maze[cell]
+                queue.append(next_cell)
+
+    path_matrix = path_lengths
 
     return path_matrix

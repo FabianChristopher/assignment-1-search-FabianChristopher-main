@@ -1,12 +1,17 @@
 def valid_moves(maze, node):
-	neighborss=[]
-	
-	'''
-	Fill in this function to return a list of "valid" neighbors 
-	for the current node in the rook-jumping-maze.
-	
-	If using print statements to debug, please make sure 
-	to remove them before your final submisison.
-	'''
+    k = len(maze)
+    x, y = node
+    steps = maze[node]
+    neighbors = []
 
-	return neighborss
+    # Check all cells horizontally and vertically based on the number of steps.
+    if x - steps >= 0:
+        neighbors.append((x - steps, y))
+    if x + steps < k:
+        neighbors.append((x + steps, y))
+    if y - steps >= 0:
+        neighbors.append((x, y - steps))
+    if y + steps < k:
+        neighbors.append((x, y + steps))
+
+    return neighbors
