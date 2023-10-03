@@ -1,7 +1,6 @@
 import heapq
 import numpy as np
 from VALID_MOVES import valid_moves
-from queue import PriorityQueue
 
 
 def H_score(node, goal, n):
@@ -14,11 +13,11 @@ def ASTAR(maze, start, goal):
     k = len(maze)
     path_lengths = {start: 0}
     path_prev = {start: None}
-    queue = PriorityQueue()
-    queue.put((0, start))
+    queue = []
+    heapq.heappush(queue, (0, start))
 
-    while not queue.empty():
-        _, cell = queue.get()
+    while queue:
+        _, cell = heapq.heappop(queue)
 
         if cell == goal:
             break
@@ -29,7 +28,7 @@ def ASTAR(maze, start, goal):
             if next_cell not in path_lengths or new_cost < path_lengths[next_cell]:
                 path_lengths[next_cell] = new_cost
                 priority = new_cost + H_score(next_cell, goal, k)
-                queue.put((priority, next_cell))
+                heapq.heappush(queue, (priority, next_cell))
                 path_prev[next_cell] = cell
 
     path = []
