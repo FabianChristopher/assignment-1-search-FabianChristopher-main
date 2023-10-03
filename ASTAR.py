@@ -24,7 +24,7 @@ def ASTAR(maze, start, goal):
             break
 
         for next_cell in valid_moves(maze, cell):
-            new_cost = path_lengths[cell] + maze[cell]
+            new_cost = path_lengths[cell] + 1
 
             if next_cell not in path_lengths or new_cost < path_lengths[next_cell]:
                 path_lengths[next_cell] = new_cost
