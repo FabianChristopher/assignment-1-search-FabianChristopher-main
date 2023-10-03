@@ -1,5 +1,5 @@
 def valid_moves(maze, node):
-	neighbors=[]
+	neighborss=[]
 	
 	'''
 	Fill in this function to return a list of "valid" neighbors 
@@ -9,4 +9,4 @@ def valid_moves(maze, node):
 	to remove them before your final submisison.
 	'''
 
-	return neighbors
+	return neighborss
