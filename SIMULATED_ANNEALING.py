@@ -4,6 +4,10 @@ from BFS import BFS
 from ASTAR import ASTAR
 from HILLDESCENT import energyfunction
 
+# External Sources used - Python Documentations, Stack OverFlow, Generative AI, YouTube for debugging purposes.
+
+# Implements Simulated Annealing, taking arguments RJM, start state, iterations, T and decoy, returns a tuple containing best maze and best energy.
+
 def SIMULATED_ANNEALING(maze, start_cell, goal_state, iterations, T, decay):
 
     current_maze = maze.copy()

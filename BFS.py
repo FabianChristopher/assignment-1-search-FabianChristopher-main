@@ -2,6 +2,9 @@ import numpy as np
 from VALID_MOVES import valid_moves
 from collections import deque
 
+# External Sources used - Python Documentations, Stack OverFlow, Generative AI, YouTube for debugging purposes.
+
+# Implements BFS Search, taking arguments RJM and start node, returning a matrix of path lengths.
 
 def BFS(maze, start):
     k = len(maze)

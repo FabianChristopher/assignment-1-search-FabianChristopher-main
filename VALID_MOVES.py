@@ -1,3 +1,7 @@
+# External Sources used - Python Documentations, Stack OverFlow, Generative AI, YouTube for debugging purposes.
+
+# Takes the RJM and a node, returns a list of accessible neighbours from the given node.
+
 def valid_moves(maze, node):
     k = len(maze)
     x, y = node

@@ -4,6 +4,9 @@ from BFS import BFS
 from ASTAR import ASTAR
 import random
 
+# External Sources used - Python Documentations, Stack OverFlow, Generative AI, YouTube for debugging purposes.
+
+# Returns the energy, taking arguments RJM, start node and goal state.
 
 def energyfunction(maze, start, goal):
     shortest_path_length, _ = ASTAR(maze, start, goal)
@@ -12,6 +15,7 @@ def energyfunction(maze, start, goal):
     return energy
 
 
+# Implements Hill Descent, taking arguments RJM, start state goal state and iterations, returns a tuple containing best maze and best energy.
 
 def HILLDESCENT(maze, start_cell, goal_state, iterations):
     best_maze = maze.copy()
@@ -40,6 +44,7 @@ def HILLDESCENT(maze, start_cell, goal_state, iterations):
     return best_solution
 
 
+# Implements Hill Descent Random Restart, taking arguments RJM, start state, goal state, iterations and num_searches, returns a tuple containing best maze and best energy.
 
 def HILLDESCENT_RANDOM_RESTART(maze, start_cell, goal_state, iterations, num_searches):
     best_maze = None
@@ -84,6 +89,7 @@ def HILLDESCENT_RANDOM_RESTART(maze, start_cell, goal_state, iterations, num_sea
     return best_solution
 
 
+# Implements Hill Descent Random Uphill, taking arguments RJM, start state, goal state, iterations and probability, returns a tuple containing best maze and best energy.
 
 def HILLDESCENT_RANDOM_UPHILL(maze, start_cell, goal_state, iterations, probability):
     best_maze = maze.copy()

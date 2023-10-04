@@ -2,6 +2,10 @@ import sys
 import numpy as np
 from BFS import BFS
 
+# External Sources used - Python Documentations, Stack OverFlow, Generative AI, YouTube for debugging purposes.
+
+# Generates a RJM, taking argument k, returning a RJM, start node and goal state.
+
 def generator(k):
     # Create a k * k maze with random integers between 1 and k-1 in each cell.
     init_board = np.random.randint(1, k, size=(k, k))
@@ -19,6 +23,7 @@ def generator(k):
 
     return init_board, start_cell, goal_state
 
+# Checks for validity of RJM using BFS, taking argument k, returning a RJM, start node and goal state.
 
 def generator_pathcheck(k):
     while True:
