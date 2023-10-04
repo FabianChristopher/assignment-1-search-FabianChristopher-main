@@ -2,6 +2,7 @@ import sys
 import numpy as np
 from BFS import BFS
 from ASTAR import ASTAR
+import random
 
 
 def energyfunction(maze, start, goal):
@@ -20,7 +21,14 @@ def HILLDESCENT(maze, start_cell, goal_state, iterations):
         x, y = np.random.randint(0, len(maze), size=2)
         if (x, y) != goal_state:
             old_value = maze[x, y]
-            maze[x, y] = np.random.randint(1, len(maze))
+
+            while True:
+                new_value = random.randint(1, maze.shape[0] - 1)
+                if new_value != old_value:
+                    break
+
+            maze[x, y] = new_value           
+            # maze[x, y] = np.random.randint(1, len(maze))
             new_energy = energyfunction(maze, start_cell, goal_state)
             if new_energy < best_energy:
                 best_energy = new_energy
@@ -51,7 +59,14 @@ def HILLDESCENT_RANDOM_RESTART(maze, start_cell, goal_state, iterations, num_sea
 
             # Change its jump value to a different random jump value between 1 and k - 1
             old_value = current_maze[x, y]
-            current_maze[x, y] = np.random.randint(1, len(maze))
+            # current_maze[x, y] = np.random.randint(1, len(maze))
+
+            while True:
+                new_value = random.randint(1, maze.shape[0] - 1)
+                if new_value != old_value:
+                    break
+
+            maze[x, y] = new_value
 
             # Compute the new energy
             new_energy = energyfunction(current_maze, start_cell, goal_state)
@@ -83,7 +98,14 @@ def HILLDESCENT_RANDOM_UPHILL(maze, start_cell, goal_state, iterations, probabil
 
         # Change its jump value to a different random jump value between 1 and k - 1
         old_value = maze[x, y]
-        maze[x, y] = np.random.randint(1, len(maze))
+        # maze[x, y] = np.random.randint(1, len(maze))
+
+        while True:
+                new_value = random.randint(1, maze.shape[0] - 1)
+                if new_value != old_value:
+                    break
+
+        maze[x, y] = new_value
 
         # Compute the new energy
         new_energy = energyfunction(maze, start_cell, goal_state)
